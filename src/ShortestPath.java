@@ -1,2 +1,6 @@
-package PACKAGE_NAME;public class ShortestPath {
+public class ShortestPath {
+
+    public static void main(String[] args) {
+
+    }
 }
