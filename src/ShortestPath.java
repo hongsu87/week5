@@ -1,18 +1,21 @@
+import java.util.Random;
+import java.util.Scanner;
+
 public class ShortestPath {
     public static void main(String[] args) {
-        Graph g = new Graph(7);
-        g.value(0, 1, 7);
-        g.value(0, 4, 3);
-        g.value(0, 5, 10);
-        g.value(1, 4, 2);
-        g.value(1, 2, 4);
-        g.value(1, 5, 6);
-        g.value(2, 3, 2);
-        g.value(3, 5, 9);
-        g.value(3, 6, 4);
-        g.value(1, 3, 10);
-        g.value(3, 4, 11);
-        g.value(4, 6, 5);
+        Scanner scanner = new Scanner(System.in);
+        Random random= new Random();
+        System.out.print("정점의 개수 : ");
+        int n =scanner.nextInt();
+        Graph g = new Graph(n);
+        System.out.print("간선의 개수:");
+        int edge =scanner.nextInt();
+        for(int i = 0; i < edge; i++){
+            int x= random.nextInt(n);
+            int y= random.nextInt(n);
+            int z= random.nextInt(20)+1;
+            g.value(x, y, z);
+        }
         dijkstra(g, 0);
     }
 
@@ -37,10 +40,12 @@ public class ShortestPath {
             }
         }
 
+
         // 모든 정점을 방문하는 동안 반복
         for(int j = 0; j<g.n-1; j++){
             int min = Integer.MAX_VALUE;
             int min_pos = -1;
+
             for(int i = 0; i<g.n; i++){
                 if(distance[i] < min && !visit[i]){
                     min = distance[i];
@@ -60,6 +65,7 @@ public class ShortestPath {
         for(int i = 0; i<g.n; i++) {
             System.out.print(distance[i]+" ");
         }
+
     }
 
     private static class Graph {
