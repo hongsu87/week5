@@ -8,8 +8,7 @@ public class ShortestPath {
         System.out.print("정점의 개수 : ");
         int n = scanner.nextInt();
         Graph g = new Graph(n);
-        System.out.print("간선의 개수 : ");
-        int edge = scanner.nextInt();
+        int edge = random.nextInt(5) + n;
 
         int num = 0;
         for(int i = 0; i<edge; i++) {
