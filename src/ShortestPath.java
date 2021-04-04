@@ -1,19 +1,37 @@
+import java.util.Random;
+import java.util.Scanner;
+
 public class ShortestPath {
     public static void main(String[] args) {
-        Graph g = new Graph(7);
-        g.value(0, 1, 7);
-        g.value(0, 4, 3);
-        g.value(0, 5, 10);
-        g.value(1, 4, 2);
-        g.value(1, 2, 4);
-        g.value(1, 5, 6);
-        g.value(2, 3, 2);
-        g.value(3, 5, 9);
-        g.value(3, 6, 4);
-        g.value(1, 3, 10);
-        g.value(3, 4, 11);
-        g.value(4, 6, 5);
-        dijkstra(g, 0);
+        Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+        System.out.print("정점의 개수 : ");
+        int n = scanner.nextInt();
+        Graph g = new Graph(n);
+        System.out.print("간선의 개수 : ");
+        int edge = scanner.nextInt();
+
+        int num = 0;
+        for(int i = 0; i<edge; i++) {
+            int x = num;
+            if(num>n-1){
+                x = random.nextInt(n);
+            }
+            int y = random.nextInt(n);
+            if(x == y){
+                while(x==y){
+                    y = random.nextInt(n);
+                }
+            }
+            int z = random.nextInt(20) + 1;
+            System.out.println(x+" "+y+" "+z);
+            g.value(x,y,z);
+            num++;
+        }
+
+        System.out.print("시작 정점 : ");
+        int v = scanner.nextInt();
+        dijkstra(g, v);
     }
 
     private static void dijkstra(Graph g, int v) {
@@ -37,22 +55,24 @@ public class ShortestPath {
             }
         }
 
-        // 모든 정점을 방문하는 동안 반복
+        // 모든 정점을 방문하면서 최단 경로 찾기
         for(int j = 0; j<g.n-1; j++){
             int min = Integer.MAX_VALUE;
             int min_pos = -1;
+
+            //방문하지 않은 정점 중에서 최단 거리의 정점 고르기
             for(int i = 0; i<g.n; i++){
                 if(distance[i] < min && !visit[i]){
-                    min = distance[i];
-                    min_pos = i;
+                    min = distance[i]; // 최단 거리
+                    min_pos = i; // 최단 거리의 인덱스(정점)
                 }
             }
 
-            visit[min_pos] = true;
+            visit[min_pos] = true; // 선택된 정점은 방문 표시해줌
             for(int i = 0; i<g.n; i++){
-                if(!visit[i] && g.weight[min_pos][i]!=0)
-                    if(distance[min_pos] + g.weight[min_pos][i] < distance[i])
-                        distance[i] = distance[min_pos] + g.weight[min_pos][i];
+                if(!visit[i] && g.weight[min_pos][i]!=0) // 방문하지 않은 정점일 때만
+                    if(distance[min_pos] + g.weight[min_pos][i] < distance[i]) // 선택된 정점을 통한 거리(distance 값)가 원래 거리보다 짧으면
+                        distance[i] = distance[min_pos] + g.weight[min_pos][i]; // 인접 정점의 distance 값 업데이트
             }
         }
 
