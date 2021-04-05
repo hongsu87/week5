@@ -45,7 +45,7 @@
 >
 > 1. 배열 distance를 ∞로 초기화시킨다. 단, distance[v]=0으로 초기화한다.    
 > 2. while (v로부터의 최단 거리가 확정되지 않은 점이 있으면)     
-> 3. 현재까지 v로부터 최단 거리가 확정되지 않은 각 점 i에 대해서 최소의 distance[i]의 값을 가진 점 min_pos을 선택하고, 출발점 v로부터 점 min_pos까지의 최단 거리 distance[vmin]을 확정한다.    
+> 3. 현재까지 v로부터 최단 거리가 확정되지 않은 각 점 u에 대해서 최소의 distance[u]의 값을 가진 점 min_pos을 선택하고, 출발점 v로부터 점 min_pos까지의 최단 거리 distance[min_pos]을 확정한다.    
 > 4. v로부터 현재보다 짧은 거리로 점 min_pos을 통해 우회 가능한 각 점 w에 대해서 distance[w]를 갱신한다.     
 > 5. return distance
 
@@ -59,7 +59,7 @@
 
 ### while-루프가 (n-1)번 반복되고, 1회 반복될 때
 
-> – 최소의 [distancev]를 가진 점 min_pos을 찾는데 O(n) 시간이 걸린다.
+> – 최소의 distance[u]를 가진 점 min_pos을 찾는데 O(n) 시간이 걸린다.
 >
 > – min_pos에 연결된 점의 수가 최대 (n-1)개이므로, 각 distance[w]를 갱신하는데 걸리는 시간은 O(n)이다.
 >
@@ -70,7 +70,6 @@
 ​    
 
 ## 소스코드
-
 
 
 ​    
@@ -84,7 +83,7 @@ visit[v] = true;
 
 ​    
 
-## distance 초기값 저장
+### distance 초기값 저장
 
 ```
  for(int i = 0; i<g.n; i++) {
@@ -97,7 +96,7 @@ visit[v] = true;
 
 ​    
 
-## 모든 정점을 방문 하면서 최단 경로 찾기
+### 모든 정점을 방문 하면서 최단 경로 찾기
 
 ```
 for(int j = 0; j<g.n-1; j++){
@@ -123,7 +122,7 @@ for(int j = 0; j<g.n-1; j++){
 
 ​    
 
-## 최단 경로의 거리 출력
+### 최단 경로의 거리 출력
 
 ```
 for(int i = 0; i<g.n; i++) {
@@ -133,7 +132,7 @@ for(int i = 0; i<g.n; i++) {
 
 ​    
 
-## Graph
+### Graph
 
 ```
 private static class Graph {
@@ -152,7 +151,7 @@ private static class Graph {
 
 ​    
 
-## Main
+### Main
 
 ```
 public static void main(String[] args) {
@@ -223,8 +222,7 @@ long beforeTime = System.currentTimeMillis();
 ---
 
 
-
-## 정점의 수에 따라 실행시간
+## 정점의 수에 따른 실행시간
 
 ​    
 
@@ -257,4 +255,4 @@ long beforeTime = System.currentTimeMillis();
 
 다익스트라 (Dijkstra)의 최단 경로 알고리즘은 출발점으로부터 최단 거리가 확정되지 않은 점들 중에서 출발점으로부터 가장 가까운 점을 추가하고, 그 점의 최단 거리를 확정한다.     
 
-시간복잡도는 O(n2)이다. 
+시간복잡도는 O(n2)로 정점의 수가 늘어날수록 실행시간이 길어졌다.
